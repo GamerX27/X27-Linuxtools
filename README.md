@@ -24,7 +24,7 @@ DebUpgrades
 To use `debupgrade`, simply open your terminal and run the following sudo debupgrade which does evrything in one single command
 
 ## One command to add debupgrades
-sudo wget https://raw.githubusercontent.com/GamerX27/My-Linux-Server-Commands-tools/main/debupgrade.sh && sudo bash debupgrade.sh
+`sudo wget https://raw.githubusercontent.com/GamerX27/My-Linux-Server-Commands-tools/main/debupgrade.sh && sudo bash debupgrade.sh`
 
 
 
