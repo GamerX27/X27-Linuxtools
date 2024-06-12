@@ -36,9 +36,6 @@ sudo apt update
 # Upgrade existing packages
 sudo apt upgrade -y
 
-# Install the Linux kernel from the testing repository
-sudo apt install -t testing linux-image-amd64 -y
-
 # Install libcurl4 from the stable repository
 sudo apt install libcurl4 -y
 
@@ -78,6 +75,9 @@ cd ..
 
 # Additional configurations and installations can go here
 # For example, you can install some useful tools and applications
+
+# Install the Linux kernel from the testing repository
+sudo apt install -t testing linux-image-amd64 -y
 
 # Reboot message with countdown
 echo "Your system will be rebooted in:"
