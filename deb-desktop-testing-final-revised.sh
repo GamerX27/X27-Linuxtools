@@ -33,8 +33,8 @@ EOF
 # Update the package list
 sudo apt update
 
-# Upgrade existing packages
-sudo apt upgrade -y
+# Upgrade existing packages change if needed
+#sudo apt upgrade -y
 
 # Install libcurl4 from the stable repository
 sudo apt install libcurl4 -y
