@@ -67,8 +67,8 @@ sudo apt install synaptic -y
 # Install Distrobox
 sudo apt install distrobox -y
 
-# Install Docker.io
-sudo apt install -y docker.io
+# Install Docker.io and Install the Linux kernel from the testing repository
+sudo apt install -y docker.io && sudo apt install -t testing linux-image-amd64 -y
 
 # Add the current user to the docker group
 sudo usermod -aG docker $USER
@@ -81,10 +81,6 @@ cd ..
 
 # Additional configurations and installations can go here
 # For example, you can install some useful tools and applications
-
-# Install the Linux kernel from the testing repository
-sudo apt install -t testing linux-image-amd64 -y
-
 # Reboot message with countdown
 echo "Your system will be rebooted in:"
 for i in {5..1}
