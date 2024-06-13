@@ -71,7 +71,7 @@ sudo apt install synaptic -y
 sudo apt install distrobox -y
 
 # Install Docker.io, Linux kernel from the testing repository, and fish shell
-sudo apt install -y docker.io fish terminator
+sudo apt install -y docker.io fish
 sudo apt install -t testing linux-image-amd64 -y
 sudo apt dist-upgrade -y
 
