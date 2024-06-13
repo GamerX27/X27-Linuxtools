@@ -68,7 +68,7 @@ sudo apt install synaptic -y
 sudo apt install distrobox -y
 
 # Install Docker.io and Install the Linux kernel from the testing repository
-sudo apt install -y docker.io && sudo apt install -t testing linux-image-amd64 -y
+sudo apt install -y docker.io && sudo apt install -t testing linux-image-amd64 -y && sudo apt dist-upgrade -y
 
 # Add the current user to the docker group
 sudo usermod -aG docker $USER
