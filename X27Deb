@@ -4,7 +4,7 @@
 echo "deb http://ftp.no.debian.org/debian/ testing main contrib non-free" | sudo tee -a /etc/apt/sources.list
 
 # Configure APT Pinning
-sudo tee /etc/apt/preferences.d/00pinning <<EOF
+sudo tee /etc/apt/preferences.d/00pinning > /dev/null <<EOF
 Package: *
 Pin: release a=stable
 Pin-Priority: 900
@@ -33,8 +33,8 @@ EOF
 # Update the package list
 sudo apt update
 
-# Upgrade existing packages change if needed
-#sudo apt upgrade -y
+# Upgrade existing packages if needed
+# sudo apt upgrade -y
 
 # Install libcurl4 from the stable repository
 sudo apt install libcurl4 -y
@@ -55,6 +55,9 @@ sudo apt install -y htop git
 sudo apt install flatpak -y
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
+# Update package list
+sudo apt update
+
 # Install Eye of MATE image viewer
 sudo apt install eom -y
 
@@ -67,8 +70,20 @@ sudo apt install synaptic -y
 # Install Distrobox
 sudo apt install distrobox -y
 
-# Install Docker.io and Install the Linux kernel from the testing repository
-sudo apt install -y docker.io && sudo apt install -t testing linux-image-amd64 -y && sudo apt dist-upgrade -y
+# Install Docker.io, Linux kernel from the testing repository, and fish shell
+sudo apt install -y docker.io fish
+sudo apt install -t testing linux-image-amd64 -y
+sudo apt dist-upgrade -y
+
+# Remove Podman if installed
+if dpkg -l | grep -q podman; then
+  sudo apt purge podman -y
+fi
+
+# Final update and upgrade
+sudo apt update && sudo apt upgrade -y
+
+echo "Script execution completed."
 
 # Add the current user to the docker group
 sudo usermod -aG docker $USER
@@ -80,7 +95,6 @@ sudo ./install.sh
 cd ..
 
 # Additional configurations and installations can go here
-# For example, you can install some useful tools and applications
 # Reboot message with countdown
 echo "Your system will be rebooted in:"
 for i in {5..1}
