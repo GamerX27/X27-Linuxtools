@@ -24,6 +24,10 @@ Pin-Priority: 910
 Package: nemo*
 Pin: release a=testing
 Pin-Priority: 910
+
+Package: linux-image-*
+Pin: release a=testing
+Pin-Priority: 910
 EOF
 
 # Update the package list
@@ -68,6 +72,7 @@ sudo apt install distrobox -y
 
 # Install Docker.io, Linux kernel from the testing repository, and fish shell
 sudo apt install -y docker.io fish
+sudo apt install -t testing linux-image-amd64 -y
 sudo apt dist-upgrade -y
 
 # Remove Podman if installed
@@ -89,10 +94,14 @@ cd Top-5-Bootloader-Themes
 sudo ./install.sh
 cd ..
 
-# Install Nix package manager
-sh <(curl -L https://nixos.org/nix/install) --daemon
-
 # Additional configurations and installations can go here
+
+# Prompt to execute the Nix install command
+read -p "Do you want to execute 'sh <(curl -L https://nixos.org/nix/install) --daemon'? (y/n): " choice
+if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+    sh <(curl -L https://nixos.org/nix/install) --daemon
+fi
+
 # Reboot message with countdown
 echo "Your system will be rebooted in:"
 for i in {5..1}
