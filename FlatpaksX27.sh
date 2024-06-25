@@ -43,6 +43,7 @@ apps=(
     org.kde.kwrite
     io.github.Qalculate
     com.vivaldi.Vivaldi
+    org.gnome.Platform.Locale//43
 )
 
 # Loop through the list and install each application
