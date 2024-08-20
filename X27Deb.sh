@@ -71,14 +71,14 @@ sudo apt install synaptic -y
 sudo apt install distrobox -y
 
 # Install Docker.io, Linux kernel from the testing repository, and fish shell and stacer
-sudo apt install -y docker.io fish stacer
+sudo apt install -y #docker.io fish stacer
 sudo apt install -t testing linux-image-amd64 -y
 sudo apt dist-upgrade -y
 
 # Remove Podman if installed
-if dpkg -l | grep -q podman; then
-  sudo apt purge podman -y
-fi
+#if dpkg -l | grep -q podman; then
+  #sudo apt purge podman -y
+#fi
 
 # Final update and upgrade
 sudo apt update && sudo apt upgrade -y
