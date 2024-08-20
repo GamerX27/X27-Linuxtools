@@ -33,7 +33,7 @@ Package: *
 Pin: release a=testing
 Pin-Priority: 100
 
-Package: kde-plasma-desktop
+Package: kde-standard
 Pin: release a=testing
 Pin-Priority: 990
 
@@ -50,8 +50,13 @@ EOF
     # Update package lists
     apt update
 
-    # Install KDE Plasma desktop with no recommended packages
-    apt install -t testing kde-plasma-desktop --no-install-recommends -y
+    # Install KDE Standard package with necessary components
+    apt install -t testing kde-standard --no-install-recommends -y
+
+    # Install SDDM and enable it to start at boot
+    apt install sddm -y
+    sudo systemctl enable sddm
+    sudo systemctl start sddm
 
     # Install the kernel from the testing branch
     apt install -t testing linux-image-amd64 -y
@@ -120,7 +125,7 @@ else
     install_flatpak() {
         local app=$1
         echo -e "${GREEN}Installing ${app}...${NC}"
-        flatpak install -y flathub ${app}
+        flatpak install -y flathub ${app} || { echo -e "${GREEN}Failed to install ${app}. Skipping...${NC}"; }
         echo -e "${GREEN}${app} installed successfully!${NC}\n"
     }
 
