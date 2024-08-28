@@ -4,15 +4,6 @@
 sudo pacman -Syu --noconfirm
 sudo pacman -S --needed base-devel git --noconfirm
 
-# Clone the yay repository from AUR, build, and install yay
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si --noconfirm
-
-# Remove the yay directory after installation
-cd ..
-rm -rf yay
-
 # Continue with the rest of the setup
 
 # Install core Cinnamon utilities (excluding Pix) using pacman
@@ -36,11 +27,11 @@ sudo pacman -S --noconfirm cinnamon-weather-applet
 # Install Timeshift for system backups using pacman
 sudo pacman -S --noconfirm timeshift
 
-# Install Octopi via AUR using yay
-yay -S --noconfirm octopi
+# Install Octopi via pacman
+sudo pacman -S --noconfirm octopi
 
-# Install additional applications via Flatpak using yay for AUR
-yay -S --noconfirm flatpak
+# Install Flatpak if not already installed
+sudo pacman -S --noconfirm flatpak
 
 # Install Flatpak applications
 flatpak install flathub org.onlyoffice.desktopeditors -y
@@ -49,6 +40,9 @@ flatpak install flathub com.github.tchx84.Flatseal -y
 flatpak install flathub com.heroicgameslauncher.hgl -y
 flatpak install flathub org.kde.kwrite -y
 flatpak install flathub io.github.Qalculate -y
+
+# Install GNOME Platform Locale 43 via Flatpak
+flatpak install flathub org.gnome.Platform.Locale//43 -y
 
 # Ensure default home directory structure
 create_directory() {
@@ -68,7 +62,6 @@ create_directory ~/Videos
 create_directory ~/Downloads
 
 # Final system cleanup
-yay -Sc --noconfirm
 sudo pacman -Sc --noconfirm
 
 echo "Setup complete. You may reboot your system for all changes to take effect."
