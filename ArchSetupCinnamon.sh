@@ -4,6 +4,9 @@
 sudo pacman -Syu --noconfirm
 sudo pacman -S --needed base-devel git --noconfirm
 
+# Install xdg-user-dirs-gtk to manage user directories
+sudo pacman -S --noconfirm xdg-user-dirs-gtk
+
 # Continue with the rest of the setup
 
 # Install core Cinnamon utilities (excluding Pix) using pacman
@@ -43,23 +46,6 @@ flatpak install flathub io.github.Qalculate -y
 
 # Install GNOME Platform Locale 43 via Flatpak
 flatpak install flathub org.gnome.Platform.Locale//43 -y
-
-# Ensure default home directory structure
-create_directory() {
-  if [ ! -d "$1" ]; then
-    mkdir -p "$1"
-    echo "Directory $1 created."
-  else
-    echo "Directory $1 already exists."
-  fi
-}
-
-create_directory ~/Desktop
-create_directory ~/Documents
-create_directory ~/Music
-create_directory ~/Pictures
-create_directory ~/Videos
-create_directory ~/Downloads
 
 # Final system cleanup
 sudo pacman -Sc --noconfirm
