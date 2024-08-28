@@ -1,7 +1,19 @@
 #!/bin/bash
 
-# Update system using pacman
+# Update system and install base development tools
 sudo pacman -Syu --noconfirm
+sudo pacman -S --needed base-devel git --noconfirm
+
+# Clone the yay repository from AUR, build, and install yay
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si --noconfirm
+
+# Remove the yay directory after installation
+cd ..
+rm -rf yay
+
+# Continue with the rest of the setup
 
 # Install core Cinnamon utilities (excluding Pix) using pacman
 sudo pacman -S --noconfirm nemo xreader gnome-terminal cinnamon-control-center cinnamon-settings-daemon cinnamon-session muffin cinnamon-screensaver
@@ -38,8 +50,6 @@ flatpak install flathub com.heroicgameslauncher.hgl -y
 flatpak install flathub org.kde.kwrite -y
 flatpak install flathub io.github.Qalculate -y
 
-# Your existing setup commands...
-
 # Ensure default home directory structure
 create_directory() {
   if [ ! -d "$1" ]; then
@@ -56,10 +66,6 @@ create_directory ~/Music
 create_directory ~/Pictures
 create_directory ~/Videos
 create_directory ~/Downloads
-
-# Final system cleanup
-yay -Sc --noconfirm
-sudo pacman -Sc --noconfirm
 
 # Final system cleanup
 yay -Sc --noconfirm
