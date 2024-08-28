@@ -38,8 +38,28 @@ flatpak install flathub com.heroicgameslauncher.hgl -y
 flatpak install flathub org.kde.kwrite -y
 flatpak install flathub io.github.Qalculate -y
 
+# Your existing setup commands...
+
 # Ensure default home directory structure
-mkdir -p ~/Desktop ~/Documents ~/Music ~/Pictures ~/Videos ~/Downloads
+create_directory() {
+  if [ ! -d "$1" ]; then
+    mkdir -p "$1"
+    echo "Directory $1 created."
+  else
+    echo "Directory $1 already exists."
+  fi
+}
+
+create_directory ~/Desktop
+create_directory ~/Documents
+create_directory ~/Music
+create_directory ~/Pictures
+create_directory ~/Videos
+create_directory ~/Downloads
+
+# Final system cleanup
+yay -Sc --noconfirm
+sudo pacman -Sc --noconfirm
 
 # Final system cleanup
 yay -Sc --noconfirm
