@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Add contrib, non-free, and non-free-firmware components to the sources list
+echo "Adding contrib, non-free, and non-free-firmware repositories..."
+sudo add-apt-repository 'deb [contrib non-free non-free-firmware] http://deb.debian.org/debian $(lsb_release -cs) main'
+
 # Update and upgrade the system
 echo "Updating and upgrading the system..."
 sudo apt update && sudo apt upgrade -y
