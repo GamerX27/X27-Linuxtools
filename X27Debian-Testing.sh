@@ -4,6 +4,15 @@
 echo "Updating and upgrading the system..."
 sudo apt update && sudo apt upgrade -y
 
+# Install LightDM and Slick Greeter
+echo "Installing LightDM and Slick Greeter..."
+sudo apt install -y lightdm slick-greeter || { echo "Failed to install LightDM and Slick Greeter!"; exit 1; }
+
+# Enable LightDM as the default display manager
+echo "Configuring LightDM as the default display manager..."
+sudo systemctl enable lightdm || { echo "Failed to enable LightDM!"; exit 1; }
+sudo dpkg-reconfigure lightdm
+
 # Install Cinnamon desktop environment
 echo "Installing Cinnamon desktop environment..."
 sudo apt install -y cinnamon-core || { echo "Failed to install Cinnamon desktop environment!"; exit 1; }
@@ -11,16 +20,6 @@ sudo apt install -y cinnamon-core || { echo "Failed to install Cinnamon desktop 
 # Install necessary packages
 echo "Installing necessary packages..."
 sudo apt install -y git libcurl4 curl htop flatpak eom papirus-icon-theme synaptic distrobox pysassc build-essential xdg-user-dirs xdg-user-dirs-gtk plasma-discover plasma-discover-backend-flatpak || { echo "Failed to install necessary packages!"; exit 1; }
-
-# Install SDDM (KDE Login Manager) and set it as default
-echo "Installing SDDM (KDE Login Manager)..."
-sudo apt install -y sddm || { echo "Failed to install SDDM!"; exit 1; }
-
-# Set SDDM as the default display manager
-echo "Configuring SDDM as the default login manager..."
-#sudo systemctl disable lightdm.service || { echo "Failed to disable LightDM!"; exit 1; }
-#sudo systemctl disable gdm.service || { echo "Failed to disable GDM!"; exit 1; }
-sudo systemctl enable sddm.service || { echo "Failed to enable SDDM!"; exit 1; }
 
 # Install Mint Themes
 echo "Cloning the Mint Themes repository..."
