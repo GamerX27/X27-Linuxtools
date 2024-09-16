@@ -11,13 +11,8 @@ X27 Linux Tools is a collection of shell scripts designed to help automate vario
 
 
 
-./FlatpaksX27.sh
+wget -qO- https://raw.githubusercontent.com/GamerX27/X27-Linuxtools/main/X27-Linuxtools.sh | bash
 
-./X27Debian.sh
-
-./deb-desktop-testing.sh
-
-./x27debNix.sh
 
 
 
