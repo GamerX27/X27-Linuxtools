@@ -10,7 +10,11 @@ X27 Linux Tools is a collection of shell scripts designed to help automate vario
 - **x27debNix.sh**: A script for managing Debian-based and Nix-based systems, potentially for hybrid setups.
 
 
+## How to Run X27 Linuxtools
 
+To execute the main `X27-Linuxtools.sh` script directly, use this command:
+
+```bash
 wget -qO- https://raw.githubusercontent.com/GamerX27/X27-Linuxtools/main/X27-Linuxtools.sh | bash
 
 
