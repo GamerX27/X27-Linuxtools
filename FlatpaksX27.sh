@@ -37,13 +37,13 @@ print_header
 apps=(
     org.onlyoffice.desktopeditors
     org.kde.krita
-    org.videolan.VLC
+    #org.videolan.VLC
     com.github.tchx84.Flatseal
     com.usebottles.bottles
     org.kde.kwrite
     io.github.Qalculate
     com.vivaldi.Vivaldi
-    org.gnome.Platform.Locale//43
+    #org.gnome.Platform.Locale//43
 )
 
 # Loop through the list and install each application
