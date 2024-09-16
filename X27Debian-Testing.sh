@@ -18,7 +18,7 @@ sudo apt install -y sddm || { echo "Failed to install SDDM!"; exit 1; }
 
 # Set SDDM as the default display manager
 echo "Configuring SDDM as the default login manager..."
-sudo systemctl disable lightdm.service || { echo "Failed to disable LightDM!"; exit 1; }
+#sudo systemctl disable lightdm.service || { echo "Failed to disable LightDM!"; exit 1; }
 #sudo systemctl disable gdm.service || { echo "Failed to disable GDM!"; exit 1; }
 sudo systemctl enable sddm.service || { echo "Failed to enable SDDM!"; exit 1; }
 
