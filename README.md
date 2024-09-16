@@ -1,31 +1,23 @@
-# My-Linux-Server-Commands-tools
+# X27 Linux Tools
+
+X27 Linux Tools is a collection of shell scripts designed to help automate various tasks on Linux systems, specifically for Debian-based distributions and Flatpak installations. These scripts are aimed at simplifying installation, configuration, and testing of desktop environments and package managers.
+
+## Features
+
+- **FlatpaksX27.sh**: Automates the installation and management of Flatpak packages.
+- **X27Debian.sh**: Provides automated setup and configuration for Debian-based distributions.
+- **deb-desktop-testing.sh**: A script tailored for testing Debian-based desktop environments.
+- **x27debNix.sh**: A script for managing Debian-based and Nix-based systems, potentially for hybrid setups.
 
 
-This is tools i have created to help making my selfhosting experience way more easier and less hassle to use
-Everything here can be modified if needed its allowed to change it in your own ways
 
+./FlatpaksX27.sh
 
-Projects
-DebUpgrades
-# debupgrade
+./X27Debian.sh
 
-`debupgrade` is a custom command for Debian-based Linux systems that simplifies the process of updating and upgrading your system with a single command. It also includes an automatic removal of unnecessary packages to help keep your system clean.
+./deb-desktop-testing.sh
 
-## How it Works
-
-1. **Update Package Lists**: `debupgrade` begins by running `sudo apt update` to update the package lists from your software repositories.
-
-2. **Upgrade Installed Packages**: After updating the package lists, it proceeds to upgrade all installed packages with `sudo apt upgrade -y`. The `-y` flag automatically confirms package upgrades without user intervention.
-
-3. **Autoremove Unused Packages**: To keep your system tidy, `debupgrade` concludes by executing `sudo apt autoremove -y`, which removes any unnecessary packages that are no longer required by any installed software.
-
-## Usage
-
-To use `debupgrade`, simply open your terminal and run the following sudo debupgrade which does evrything in one single command
-
-## One command to add debupgrades
-`sudo wget https://raw.githubusercontent.com/GamerX27/My-Linux-Server-Commands-tools/main/debupgrade.sh && sudo bash debupgrade.sh`
-
+./x27debNix.sh
 
 
 
