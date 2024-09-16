@@ -19,4 +19,3 @@ wget -qO- https://raw.githubusercontent.com/GamerX27/X27-Linuxtools/main/X27-Lin
 
 
 
-
