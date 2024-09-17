@@ -8,7 +8,7 @@ X27 Linux Tools is a collection of shell scripts designed to help automate vario
 - **X27Debian.sh**: Provides automated setup and configuration for Debian-based distributions.
 - **deb-desktop-testing.sh**: A script tailored for testing Debian-based desktop environments.
 - **x27debNix.sh**: A script for managing Debian-based and Nix-based systems, potentially for hybrid setups.
-- **.sh**
+- **Docker-Install.sh** a docker helper script for installing docker from the official site with their instructions with the help of their script and also a optinaol portainer install
 
 ## How to Run X27 Linuxtools
 
