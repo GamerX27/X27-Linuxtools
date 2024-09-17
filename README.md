@@ -8,7 +8,7 @@ X27 Linux Tools is a collection of shell scripts designed to help automate vario
 - **X27Debian.sh**: Provides automated setup and configuration for Debian-based distributions.
 - **deb-desktop-testing.sh**: A script tailored for testing Debian-based desktop environments.
 - **x27debNix.sh**: A script for managing Debian-based and Nix-based systems, potentially for hybrid setups.
-
+- **.sh**
 
 ## How to Run X27 Linuxtools
 
