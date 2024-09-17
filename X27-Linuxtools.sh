@@ -8,7 +8,8 @@ show_menu() {
     echo "1) X27Debian"
     echo "2) X27Debian-Testing"
     echo "3) FlatpakX27"
-    echo "4) Exit"
+    echo "4) Docker Install"
+    echo "5) Exit"
     echo "==================================="
 }
 
@@ -36,6 +37,14 @@ run_flatpak_x27() {
     ./FlatpaksX27.sh
 }
 
+# Function to download and run Docker-Install script
+run_docker_install() {
+    echo "Running Docker Install..."
+    curl -O https://raw.githubusercontent.com/GamerX27/X27-Linuxtools/main/Docker-Install.sh
+    chmod +x Docker-Install.sh
+    ./Docker-Install.sh
+}
+
 # Main loop
 while true; do
     show_menu
@@ -52,6 +61,9 @@ while true; do
             run_flatpak_x27
             ;;
         4)
+            run_docker_install
+            ;;
+        5)
             echo "Exiting..."
             exit 0
             ;;
