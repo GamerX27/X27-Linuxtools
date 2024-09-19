@@ -19,7 +19,7 @@ sudo apt install -y cinnamon-core || { echo "Failed to install Cinnamon desktop 
 
 # Install necessary packages
 echo "Installing necessary packages..."
-sudo apt install -y git libcurl4 curl htop flatpak eom papirus-icon-theme synaptic distrobox pysassc build-essential xdg-user-dirs xdg-user-dirs-gtk plasma-discover plasma-discover-backend-flatpak || { echo "Failed to install necessary packages!"; exit 1; }
+sudo apt install -y git libcurl4 curl htop flatpak eom papirus-icon-theme synaptic distrobox pysassc build-essential xdg-user-dirs xdg-user-dirs-gtk #plasma-discover #plasma-discover-backend-flatpak || { echo "Failed to install necessary packages!"; exit 1; }
 
 # Install Mint Themes
 echo "Cloning the Mint Themes repository..."
