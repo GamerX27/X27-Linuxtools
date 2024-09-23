@@ -6,7 +6,7 @@ sudo apt update
 sudo apt upgrade -y
 
 # Install essential tools with Cinnamon-core for a minimal Cinnamon desktop
-sudo apt install -y --no-install-recommends \
+sudo apt install -y \
     xorg \
     cinnamon-core \  # Minimal Cinnamon desktop
     network-manager \
@@ -28,11 +28,10 @@ sudo apt install -y --no-install-recommends \
     unzip \
     git \
     make \
-    python3-pysassc  # Required for building Mint themes
+    pysassc  # Required for building Mint themes
 
 # Enable Flatpak and add Flathub repository
 echo "Setting up Flatpak..."
-sudo apt install -y flatpak
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 echo "Flatpak support has been installed and Flathub added as a repository."
 
@@ -47,9 +46,6 @@ sudo cp -r usr/share/themes/* /usr/share/themes/ || { echo "Failed to move the t
 cd ..
 echo "Mint Themes have been successfully installed to /usr/share/themes!"
 echo "You can now apply the themes via your desktop environment's settings."
-
-# Optionally install multimedia codecs and drivers (uncomment the line below to enable)
-# sudo apt install -y ubuntu-restricted-extras
 
 # Enable and configure LightDM with slick-greeter
 echo "Configuring LightDM with slick-greeter..."
