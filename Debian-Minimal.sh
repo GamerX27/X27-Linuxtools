@@ -3,7 +3,7 @@
 
 # Update and install packages
 sudo apt update
-sudo apt install -y curl htop flatpak papirus-icon-theme synaptic distrobox pysassc build-essential xdg-user-dirs xdg-user-dirs-gtk make
+sudo apt install -y curl htop cinnamon-core flatpak papirus-icon-theme synaptic distrobox pysassc build-essential xdg-user-dirs xdg-user-dirs-gtk make
 
 # Add Flathub repository for Flatpak
 echo "Adding Flathub repository for Flatpak..."
