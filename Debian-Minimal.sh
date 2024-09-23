@@ -1,39 +1,13 @@
 #!/bin/bash
-# Update package lists
+# Script to install various packages, Mint Themes, and add Flathub repository for Flatpak
+
+# Update and install packages
 sudo apt update
+sudo apt install -y curl htop flatpak papirus-icon-theme synaptic distrobox pysassc build-essential xdg-user-dirs xdg-user-dirs-gtk make
 
-# Upgrade current packages
-sudo apt upgrade -y
-
-# Install essential tools with Cinnamon-core for a minimal Cinnamon desktop
-sudo apt install -y \
-    xorg \
-    cinnamon-core \  # Minimal Cinnamon desktop
-    network-manager \
-    network-manager-gnome \
-    gnome-terminal \
-    nemo \
-    firefox-esr \
-    pulseaudio \
-    alsa-utils \
-    gvfs-backends \
-    bash-completion \
-    xdg-user-dirs \
-    gedit \
-    xviewer \  # Image viewer for Cinnamon
-    synaptic \  # Synaptic package manager
-    lightdm \
-    lightdm-slick-greeter \  # Slick-greeter for LightDM
-    flatpak \  # Flatpak support
-    unzip \
-    git \
-    make \
-    pysassc  # Required for building Mint themes
-
-# Enable Flatpak and add Flathub repository
-echo "Setting up Flatpak..."
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-echo "Flatpak support has been installed and Flathub added as a repository."
+# Add Flathub repository for Flatpak
+echo "Adding Flathub repository for Flatpak..."
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo || { echo "Failed to add Flathub repository!"; exit 1; }
 
 # Install Mint Themes
 echo "Cloning the Mint Themes repository..."
@@ -47,15 +21,12 @@ cd ..
 echo "Mint Themes have been successfully installed to /usr/share/themes!"
 echo "You can now apply the themes via your desktop environment's settings."
 
-# Enable and configure LightDM with slick-greeter
-echo "Configuring LightDM with slick-greeter..."
-sudo systemctl enable lightdm
-sudo sed -i 's/^#greeter-session=.*$/greeter-session=slick-greeter/' /etc/lightdm/lightdm.conf
-echo "LightDM has been configured to use slick-greeter."
-
-# Cleanup unnecessary files
-sudo apt autoremove -y
-sudo apt clean
-
-echo "Minimal Cinnamon Debian setup with Mint Themes, Synaptic, Flatpak, and LightDM (slick-greeter) completed. Rebooting now."
-sudo reboot
+# Ask for reboot
+echo "Installation complete. Do you want to reboot now? (y/n)"
+read -r answer
+if [[ "$answer" =~ ^[Yy]$ ]]; then
+    echo "Rebooting..."
+    sudo reboot
+else
+    echo "Reboot canceled. You can reboot later by typing 'sudo reboot'."
+fi
