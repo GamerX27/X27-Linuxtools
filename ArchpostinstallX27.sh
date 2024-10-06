@@ -10,7 +10,7 @@ install_dependencies_and_minimal_apps() {
     
     # Install core packages for slick-greeter, lightdm, theming, and LightDM settings GUI
     sudo pacman -S --needed meson vala gtk3 libcanberra lightdm libx11 cairo xapp wget \
-                         gtk-engine-murrine sassc git lightdm-gtk-greeter-settings --noconfirm
+                         gtk-engine-murrine sassc git lightdm-gtk-greeter-settings python-pysassc --noconfirm
 
     # Install minimal Ubuntu-like applications, excluding unnecessary terminals and editors
     sudo pacman -S --needed networkmanager gnome-disk-utility file-roller evince gnome-system-monitor --noconfirm
