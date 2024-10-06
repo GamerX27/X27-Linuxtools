@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Arch Linux Mint Post-Installation Script
+# Arch Linux Mint Post-Installation Script (Without Mint Themes)
 # This script sets up a Linux Mint-like experience on an Arch Linux base system with Cinnamon already installed.
-# It installs necessary dependencies, themes, LightDM with slick-greeter, and LightDM GTK Greeter Settings GUI.
+# It installs necessary dependencies, LightDM with slick-greeter, and LightDM GTK Greeter Settings GUI.
 
 # Function to install all required dependencies and minimal apps
 install_dependencies_and_minimal_apps() {
@@ -52,28 +52,11 @@ draw-grid=false
 EOF'
 }
 
-# Function to clone, build, and install Linux Mint themes
-install_mint_themes() {
-    echo "Installing Linux Mint themes..."
-    
-    # Clone the Linux Mint themes repository
-    git clone https://github.com/linuxmint/mint-themes.git /tmp/mint-themes
-    cd /tmp/mint-themes
-
-    # Build the themes
-    echo "Building Mint-Y themes..."
-    ./generate-themes.py
-
-    # Manually copy the built themes to /usr/share/themes
-    echo "Manually installing themes to /usr/share/themes..."
-    sudo cp -r /tmp/mint-themes/usr/share/themes/* /usr/share/themes/
-}
-
 # Function to clean up temporary directories used during installation
 cleanup() {
     echo "Cleaning up temporary files..."
     # Remove the temporary directories created during installation
-    rm -rf /tmp/slick-greeter /tmp/mint-themes
+    rm -rf /tmp/slick-greeter
 }
 
 # Main execution flow
@@ -86,10 +69,7 @@ install_dependencies_and_minimal_apps
 install_slick_greeter
 configure_lightdm_greeter
 
-# Step 3: Install Linux Mint themes
-install_mint_themes
-
-# Step 4: Clean up temporary files
+# Step 3: Clean up temporary files
 cleanup
 
 # Final message
