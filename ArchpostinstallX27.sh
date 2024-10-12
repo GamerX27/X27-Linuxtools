@@ -23,17 +23,6 @@ install_dependencies_and_minimal_apps() {
     sudo pacman -S --needed networkmanager gnome-disk-utility file-roller evince gnome-system-monitor --noconfirm
 }
 
-# Function to install Mint themes from the AUR
-install_mint_themes() {
-    echo "Do you want to install Mint themes from the AUR? (y/n)"
-    read -r install_mint_themes_choice
-    if [[ "$install_mint_themes_choice" == "y" || "$install_mint_themes_choice" == "Y" ]]; then
-        echo "Installing Mint themes from the AUR..."
-        yay -S mint-themes --noconfirm
-    else
-        echo "Skipping Mint themes installation."
-    fi
-}
 
 # Function to install the slick greeter for LightDM
 install_slick_greeter() {
