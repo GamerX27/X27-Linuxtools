@@ -9,11 +9,11 @@ install_dependencies_and_minimal_apps() {
     echo "Installing necessary packages and minimal Ubuntu-like applications..."
     
     # Install core packages for slick-greeter, lightdm, theming, and LightDM settings GUI
-    sudo pacman -S --needed meson ninja vala gtk3 libcanberra lightdm libx11 cairo xapp wget \
+    sudo pacman -S --needed --overwrite '*' meson ninja vala gtk3 libcanberra lightdm libx11 cairo xapp wget \
                          gtk-engine-murrine sassc git lightdm-gtk-greeter-settings python-pysassc --noconfirm
 
     # Install minimal Ubuntu-like applications, excluding unnecessary terminals and editors
-    sudo pacman -S --needed networkmanager gnome-disk-utility file-roller evince gnome-system-monitor --noconfirm
+    sudo pacman -S --needed --overwrite '*' networkmanager gnome-disk-utility file-roller evince gnome-system-monitor --noconfirm
 }
 
 # Function to install the slick greeter for LightDM
@@ -22,9 +22,9 @@ install_slick_greeter() {
     # Clone the slick-greeter repository from Linux Mint and build it
     git clone https://github.com/linuxmint/slick-greeter.git /tmp/slick-greeter
     cd /tmp/slick-greeter
-    meson build --prefix=/usr
-    ninja -C build
-    sudo ninja -C build install
+    meson build --prefix=/usr || { echo "Meson build failed"; exit 1; }
+    ninja -C build || { echo "Ninja build failed"; exit 1; }
+    sudo ninja -C build install || { echo "Ninja install failed"; exit 1; }
 }
 
 # Function to configure LightDM and set the greeter wallpaper and settings
