@@ -3,17 +3,30 @@
 # Arch Linux Mint Post-Installation Script (Without Mint Themes)
 # This script sets up a Linux Mint-like experience on an Arch Linux base system with Cinnamon already installed.
 # It installs necessary dependencies, LightDM with slick-greeter, and LightDM GTK Greeter Settings GUI.
+# It also installs Mint themes from AUR.
+
+# Function to install core dependencies (vala and meson)
+install_core_dependencies() {
+    echo "Installing core dependencies (vala, meson)..."
+    sudo pacman -S --needed vala meson --noconfirm
+}
 
 # Function to install all required dependencies and minimal apps
 install_dependencies_and_minimal_apps() {
     echo "Installing necessary packages and minimal Ubuntu-like applications..."
     
     # Install core packages for slick-greeter, lightdm, theming, and LightDM settings GUI
-    sudo pacman -S --needed meson ninja vala gtk3 libcanberra lightdm libx11 cairo xapp wget \
+    sudo pacman -S --needed ninja gtk3 libcanberra lightdm libx11 cairo xapp wget \
                          gtk-engine-murrine sassc git lightdm-gtk-greeter-settings python-pysassc --noconfirm
 
     # Install minimal Ubuntu-like applications, excluding unnecessary terminals and editors
     sudo pacman -S --needed networkmanager gnome-disk-utility file-roller evince gnome-system-monitor --noconfirm
+}
+
+# Function to install Mint themes from the AUR
+install_mint_themes() {
+    echo "Installing Mint themes from the AUR..."
+    yay -S mint-themes --noconfirm
 }
 
 # Function to install the slick greeter for LightDM
@@ -62,14 +75,20 @@ cleanup() {
 # Main execution flow
 echo "Starting the Arch Linux Mint post-installation setup..."
 
-# Step 1: Install necessary dependencies and minimal Ubuntu-like applications
+# Step 1: Install core dependencies (vala and meson)
+install_core_dependencies
+
+# Step 2: Install necessary dependencies and minimal Ubuntu-like applications
 install_dependencies_and_minimal_apps
 
-# Step 2: Install and configure LightDM slick greeter
+# Step 3: Install Mint themes from the AUR
+install_mint_themes
+
+# Step 4: Install and configure LightDM slick greeter
 install_slick_greeter
 configure_lightdm_greeter
 
-# Step 3: Clean up temporary files
+# Step 5: Clean up temporary files
 cleanup
 
 # Final message
