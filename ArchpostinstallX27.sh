@@ -3,7 +3,7 @@
 # Arch Linux Mint Post-Installation Script (Without Mint Themes)
 # This script sets up a Linux Mint-like experience on an Arch Linux base system with Cinnamon already installed.
 # It installs necessary dependencies, LightDM with slick-greeter, and LightDM GTK Greeter Settings GUI.
-# It also installs Mint themes from AUR.
+# Optionally, it can install Mint themes from AUR using yay.
 
 # Function to install core dependencies (vala and meson)
 install_core_dependencies() {
@@ -25,8 +25,14 @@ install_dependencies_and_minimal_apps() {
 
 # Function to install Mint themes from the AUR
 install_mint_themes() {
-    echo "Installing Mint themes from the AUR..."
-    yay -S mint-themes --noconfirm
+    echo "Do you want to install Mint themes from the AUR? (y/n)"
+    read -r install_mint_themes_choice
+    if [[ "$install_mint_themes_choice" == "y" || "$install_mint_themes_choice" == "Y" ]]; then
+        echo "Installing Mint themes from the AUR..."
+        yay -S mint-themes --noconfirm
+    else
+        echo "Skipping Mint themes installation."
+    fi
 }
 
 # Function to install the slick greeter for LightDM
@@ -81,7 +87,7 @@ install_core_dependencies
 # Step 2: Install necessary dependencies and minimal Ubuntu-like applications
 install_dependencies_and_minimal_apps
 
-# Step 3: Install Mint themes from the AUR
+# Step 3: Prompt to install Mint themes from the AUR
 install_mint_themes
 
 # Step 4: Install and configure LightDM slick greeter
