@@ -1,2 +1,0 @@
-sudo pacman -S gnome-shell gnome-control-center gnome-session gnome-settings-daemon mutter nautilus gdm
-sudo pacman -S gnome-tweaks
