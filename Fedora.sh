@@ -42,8 +42,8 @@ dnf update -y
 echo "Enabling RPM Fusion repositories..."
 
 dnf install -y \
-    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.p
+    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.p
 
 dnf group update core -y
 
@@ -80,5 +80,39 @@ dnf groupupdate sound-and-video -y
 
 echo "Media codecs installed."
 
-echo "Fedora post-installation script completed successfully!"
+# 7. Optional: Orchis Theme and Papirus Icon Installation
+read -p "Do you want to install the Orchis Theme and Papirus Icon? (y/n): " INSTALL_ORCHIS
 
+if [[ "$INSTALL_ORCHIS" == "y" || "$INSTALL_ORCHIS" == "Y" ]]; then
+    echo "Installing Orchis Theme..."
+
+    # Create a temporary directory
+    TMP_DIR=$(mktemp -d -t orchis-install-XXXXXX)
+    echo "Created temporary directory at $TMP_DIR"
+
+    # Clone the Orchis Theme repository
+    git clone https://github.com/vinceliuice/Orchis-theme "$TMP_DIR"
+
+    # Navigate to the directory
+    cd "$TMP_DIR"
+
+    # Run the installation script with desired options
+    ./install.sh -c dark -t red -l --libadwaita --tweaks compact
+
+    echo "Orchis Theme installed."
+
+    # Navigate back to home directory and remove the temporary directory
+    cd ~
+    rm -rf "$TMP_DIR"
+    echo "Temporary directory removed."
+
+    # Install Papirus Icon theme
+    echo "Installing Papirus Icon theme..."
+    dnf install -y papirus-icon-theme
+    echo "Papirus Icon theme installed."
+
+else
+    echo "Skipping Orchis Theme and Papirus Icon installation."
+fi
+
+echo "Fedora post-installation script completed successfully!"
