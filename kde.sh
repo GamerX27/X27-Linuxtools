@@ -26,7 +26,7 @@ sudo apt install -y flatpak
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Flatpak support for discover
-sudo apt install -y plasma-discover-flatpak-backend
+sudo apt install -y plasma-discover-backend-flatpak
 
 # Clean up
 sudo apt autoremove -y
