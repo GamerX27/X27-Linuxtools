@@ -31,4 +31,10 @@ sudo apt install -y plasma-discover-backend-flatpak
 # Clean up
 sudo apt autoremove -y
 
+#add wallpaper
+wget https://wallpapercave.com/wp/wp9142720.jpg
+
+#install stuff
+sudo apt install curl -y
+
 echo "Setup complete! Please reboot your system to apply all changes."
