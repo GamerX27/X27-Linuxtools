@@ -25,8 +25,8 @@ sudo apt install -y flatpak
 # Add the Flathub repository
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# Install Discover (Plasma's software center) with Flatpak support
-sudo apt install -y discover discover-flatpak-backend
+# Flatpak support for discover
+sudo apt install -y plasma-discover-flatpak-backend
 
 # Clean up
 sudo apt autoremove -y
