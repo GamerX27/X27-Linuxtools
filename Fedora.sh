@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Fedora Post Install Script by Techut
+# Fedora Post Install many of the commands are from TechHut https://www.youtube.com/watch?v=RrRpXs2pkzg
 # This script automates post-installation steps for Fedora.
 
 # Ensure the script is run as root
