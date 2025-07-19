@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Fedora Post Install Script by Techut - Updated for Fedora 41
-# This script automates the post-installation steps for Fedora 41.
+# Fedora Post Install Script by Techut
+# This script automates post-installation steps for Fedora.
 
 # Ensure the script is run as root
 if [ "$EUID" -ne 0 ]; then
@@ -9,7 +9,7 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-echo "Starting Fedora 41 post-installation script..."
+echo "Starting Fedora post-installation script..."
 
 # 1. DNF5 Configuration
 echo "Configuring DNF5..."
@@ -38,38 +38,50 @@ dnf5 clean all
 echo "Updating the system..."
 dnf5 update -y
 
-# 3. Enable RPM Fusion
-echo "Enabling RPM Fusion repositories..."
+# 3. Enable RPM Fusion (Check if already enabled)
+echo "Checking for RPM Fusion repositories..."
 
-dnf5 install -y \
-    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+FREE_REPO="/etc/yum.repos.d/rpmfusion-free.repo"
+NONFREE_REPO="/etc/yum.repos.d/rpmfusion-nonfree.repo"
+
+if [[ -f "$FREE_REPO" && -f "$NONFREE_REPO" ]]; then
+    echo "RPM Fusion repositories already enabled. Skipping..."
+else
+    echo "Enabling RPM Fusion repositories..."
+    dnf5 install -y \
+        https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+        https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    echo "RPM Fusion repositories enabled."
+fi
 
 dnf5 group update core -y
 
-echo "RPM Fusion repositories enabled."
-
-# 4. Adding Flatpaks
-echo "Adding Flatpak support..."
+# 4. Adding Flatpaks (Check if Flathub is present)
+echo "Setting up Flatpak support..."
 
 dnf5 install -y flatpak
 
-# Add Flathub repository
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-echo "Flatpak support added."
-
-# 5. Change Hostname
-echo "Changing hostname..."
-
-# Prompt for new hostname
-read -p "Enter new hostname: " NEW_HOSTNAME
-
-if [ -z "$NEW_HOSTNAME" ]; then
-    echo "No hostname entered. Skipping hostname change."
+if flatpak remote-list | grep -q flathub; then
+    echo "Flathub repository already exists. Skipping..."
 else
-    hostnamectl set-hostname "$NEW_HOSTNAME"
-    echo "Hostname changed to $NEW_HOSTNAME"
+    echo "Adding Flathub repository..."
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+fi
+
+echo "Flatpak support configured."
+
+# 5. Change Hostname (Optional)
+read -p "Do you want to change the hostname? (y/n): " CHANGE_HOSTNAME
+if [ "$CHANGE_HOSTNAME" == "y" ]; then
+    read -p "Enter new hostname: " NEW_HOSTNAME
+    if [ -z "$NEW_HOSTNAME" ]; then
+        echo "No hostname entered. Skipping hostname change."
+    else
+        hostnamectl set-hostname "$NEW_HOSTNAME"
+        echo "Hostname changed to $NEW_HOSTNAME"
+    fi
+else
+    echo "Skipping hostname change."
 fi
 
 # 6. Install Media Codecs
@@ -81,13 +93,14 @@ dnf5 groupupdate sound-and-video -y
 echo "Media codecs installed."
 
 # 7. NVIDIA Drivers with Secure Boot (Optional)
-read -p "Do you need to install NVIDIA proprietary drivers with Secure Boot support? (y/n): " INSTALL_NVIDIA
+read -p "Do you want to install NVIDIA proprietary drivers with Secure Boot support? (y/n): " INSTALL_NVIDIA
 if [ "$INSTALL_NVIDIA" == "y" ]; then
     echo "Installing NVIDIA drivers with Secure Boot support..."
     dnf5 install -y akmod-nvidia
     echo "Configuring Secure Boot with mokutil..."
     mokutil --import /etc/pki/akmods/certs/kmod-nvidia.der
-    echo "Please reboot your system and follow the prompts to complete the driver installation."\else
+    echo "Please reboot your system and follow the prompts to complete the driver installation."
+else
     echo "Skipping NVIDIA driver installation."
 fi
 
@@ -97,4 +110,4 @@ dnf5 install -y tuned
 tuned-adm profile balanced
 echo "Tuned set to balanced profile."
 
-echo "Fedora 41 post-installation steps completed."
+echo "Fedora post-installation steps completed."
