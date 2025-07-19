@@ -70,7 +70,34 @@ fi
 
 echo "Flatpak support configured."
 
-# 5. Change Hostname (Optional)
+# 5. Brave Browser Installation
+if command -v flatpak &> /dev/null; then
+    read -p "Do you want to install Brave browser? (y/n): " INSTALL_BRAVE
+    if [ "$INSTALL_BRAVE" == "y" ]; then
+        echo "Choose installation method for Brave:"
+        echo "1) Flatpak (Flathub)"
+        echo "2) Brave's official install script (via curl)"
+        read -p "Enter 1 or 2: " BRAVE_METHOD
+
+        if [ "$BRAVE_METHOD" == "1" ]; then
+            echo "Installing Brave via Flatpak..."
+            flatpak install -y flathub com.brave.Browser
+        elif [ "$BRAVE_METHOD" == "2" ]; then
+            echo "Installing Brave using Brave's official install script..."
+            if ! command -v curl &> /dev/null; then
+                echo "curl is not installed. Installing curl..."
+                dnf5 install -y curl
+            fi
+            curl -fsS https://dl.brave.com/install.sh | sh
+        else
+            echo "Invalid option. Skipping Brave installation."
+        fi
+    else
+        echo "Skipping Brave browser installation."
+    fi
+fi
+
+# 6. Change Hostname (Optional)
 read -p "Do you want to change the hostname? (y/n): " CHANGE_HOSTNAME
 if [ "$CHANGE_HOSTNAME" == "y" ]; then
     read -p "Enter new hostname: " NEW_HOSTNAME
@@ -84,7 +111,7 @@ else
     echo "Skipping hostname change."
 fi
 
-# 6. Install Media Codecs
+# 7. Install Media Codecs
 echo "Installing media codecs..."
 
 dnf5 groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y
@@ -92,7 +119,7 @@ dnf5 groupupdate sound-and-video -y
 
 echo "Media codecs installed."
 
-# 7. NVIDIA Drivers with Secure Boot (Optional)
+# 8. NVIDIA Drivers with Secure Boot (Optional)
 read -p "Do you want to install NVIDIA proprietary drivers with Secure Boot support? (y/n): " INSTALL_NVIDIA
 if [ "$INSTALL_NVIDIA" == "y" ]; then
     echo "Installing NVIDIA drivers with Secure Boot support..."
@@ -104,7 +131,7 @@ else
     echo "Skipping NVIDIA driver installation."
 fi
 
-# 8. Power Profile Configuration
+# 9. Power Profile Configuration
 echo "Configuring power profile using tuned..."
 dnf5 install -y tuned
 tuned-adm profile balanced
