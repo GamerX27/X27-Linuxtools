@@ -112,24 +112,13 @@ else
 fi
 
 # 7. Install Media Codecs
-echo "Installing media codecs..."
+#echo "Installing media codecs..."
 
-dnf5 groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y
-dnf5 groupupdate sound-and-video -y
+#dnf5 groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y
+#dnf5 groupupdate sound-and-video -y
 
-echo "Media codecs installed."
+#echo "Media codecs installed."
 
-# 8. NVIDIA Drivers with Secure Boot (Optional)
-read -p "Do you want to install NVIDIA proprietary drivers with Secure Boot support? (y/n): " INSTALL_NVIDIA
-if [ "$INSTALL_NVIDIA" == "y" ]; then
-    echo "Installing NVIDIA drivers with Secure Boot support..."
-    dnf5 install -y akmod-nvidia
-    echo "Configuring Secure Boot with mokutil..."
-    mokutil --import /etc/pki/akmods/certs/kmod-nvidia.der
-    echo "Please reboot your system and follow the prompts to complete the driver installation."
-else
-    echo "Skipping NVIDIA driver installation."
-fi
 
 # 9. Power Profile Configuration
 echo "Configuring power profile using tuned..."
