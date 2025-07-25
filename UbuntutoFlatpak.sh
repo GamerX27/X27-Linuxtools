@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Forked from https://github.com/BryanDollery/remove-snap by BryanDollery
-# Modified by X27 to include optional Flatpak support and reboot prompt
+# Modified by X27 to include Flatpak setup, reboot countdown, and user prompts
 
 echo "Removing snap..."
 
@@ -24,7 +24,7 @@ EOF
 # Ensure correct ownership
 sudo chown root:root /etc/apt/preferences.d/no-snap.pref
 
-echo "Snap removed successfully."
+echo "✅ Snap removed successfully."
 
 # Ask the user which desktop environment they are using
 echo
@@ -44,14 +44,29 @@ case "$desktop_env" in
         ;;
 esac
 
+# Add Flathub remote if it doesn't exist
+echo "Adding Flathub repository..."
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# Optional reminder
+echo
+echo "💡 Tip: After reboot, explore Flathub apps for a cleaner, ad-free experience."
+
 # Confirm if user wants to reboot
 echo
 read -p "Do you want to reboot now to finalize the changes? [y/n]: " reboot_choice
 if [[ "$reboot_choice" =~ ^[Yy]$ ]]; then
-    echo "Rebooting..."
+    echo
+    echo "Rebooting in 5 seconds... Press Ctrl+C to cancel."
+    for i in {5..1}; do
+        echo "$i..."
+        sleep 1
+    done
+    echo "♻️ Rebooting now!"
     sudo reboot
 else
     echo "Reboot skipped. You may need to reboot later."
 fi
 
-echo "All done. Credits: BryanDollery, X27"
+echo
+echo "✅ All done. Credits: BryanDollery, X27"
