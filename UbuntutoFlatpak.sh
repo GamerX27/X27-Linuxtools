@@ -48,9 +48,6 @@ esac
 echo "Adding Flathub repository..."
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-# Optional reminder
-echo
-echo "💡 Tip: After reboot, explore Flathub apps for a cleaner, ad-free experience."
 
 # Confirm if user wants to reboot
 echo
